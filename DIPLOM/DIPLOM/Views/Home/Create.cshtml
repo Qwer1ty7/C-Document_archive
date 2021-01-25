@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+@model DIPLOM.Models.Document
+
+<h2>Изменение</h2>
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                foreach (var doc in ViewBag.Documents)
+                {
+                    if (doc.Id == ViewBag.currentId)
+                    {
+        <table>
+            <tr>
+                <input type="hidden" value="@doc.DateCreate" name="DateCreate" />
+                <input type="hidden" value="@doc.Name" name="Name" />
+                <input type="hidden" value="@doc.Path" name="Path" />
+                <div class="form-group">
+                    <label for="sel1">Выберите предмет:</label>
+                    <select class="form-control" id="sel1" name="Subject">
+                        @{
+                            foreach (var opt in ViewBag.Sub)
+                            {
+                                if (opt.Name == doc.Subject)
+                                {
+                                    <option selected value="@opt.Name">@opt.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@opt.Name">@opt.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </tr>
+            <tr>
+                <div class="custom-file mt-3 mb-3">
+                    <label for="sel0">Выберите документ</label>
+                    <input type="file" class="custom-file-input" name="upload" id="sel0"><br />
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+
+                    <label for="sel2">Выберите тип документа</label>
+                    <select class="form-control" id="sel2" name="Type">
+                        @{
+                            foreach (var opt in ViewBag.Typ)
+                            {
+                                if (opt.Name == doc.Type)
+                                {
+                                    <option selected value="@opt.Name">@opt.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@opt.Name">@opt.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+                    <label for="sel3">Введите ФИО студента</label>
+                    <input type="text" name="Student" class="form-control" id="sel3" value="@doc.Student" />
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+                    <label for="sel4">Выберите группу</label>
+                    <select class="form-control" id="sel4" name="Group">
+                        @{
+                            foreach (var opt in ViewBag.Group)
+                            {
+                                if (opt.Name == doc.Group)
+                                {
+                                    <option selected value="@opt.Name">@opt.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@opt.Name">@opt.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+                    <label for="sel5">Введите ФИО проверяющего</label>
+                    <input type="text" name="Manager" class="form-control" id="sel5" value="@doc.Manager" />
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+                    <label for="sel6">Выберите статус</label>
+                    <select class="form-control" id="sel4" name="Status">
+                        @{
+                            foreach (var opt in ViewBag.Status)
+                            {
+                                if (opt.Name == doc.Status)
+                                {
+                                    <option selected value="@opt.Name">@opt.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@opt.Name">@opt.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" Value="Подтвердить" class="btn btn-primary btn-lg" />
+                </td>
+            </tr>
+        </table>
+            break;
+        }
+    }
+}

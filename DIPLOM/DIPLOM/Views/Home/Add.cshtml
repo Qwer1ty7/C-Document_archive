@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+<div>
+    <h3>Добавление</h3>
+    @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <table>
+        <tr>
+            <div class="form-group">
+                <label for="sel1">Выберите предмет:</label>
+                <select class="form-control" id="sel1" name="Subject">
+                    <option>Программирование на ЯВУ</option>
+                    <option>Физкультура</option>
+                    <option>Дискретная математика</option>
+                    <option>Экология</option>
+                    <option>Теория вероятности</option>
+                </select>
+            </div>
+        </tr>
+        <tr>
+        <div class="custom-file mt-3 mb-3">
+                <label for="sel0">Выберите документ</label>
+                <input type="file" class="custom-file-input" name="upload" id="sel0"><br />
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <label for="sel2">Выберите тип документа</label>
+                <select class="form-control" id="sel2" name="Type">
+                    <option>Лабораторная работа</option>
+                    <option>Курсовая работа</option>
+                    <option>Семинар</option>
+                    <option>ВКР</option>
+                    <option>Производственная практика</option>
+                    <option>НИР</option>
+                </select>
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <label for="sel3">Введите ФИО студента</label>
+                <input type="text" name="Student" class="form-control" id="sel3" />
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <label for="sel4">Выберите группу</label>
+                <select class="form-control" id="sel4" name="Group">
+                    <option>ИДБ-16-01</option>
+                    <option>ИДБ-16-02</option>
+                    <option>ИДБ-16-03</option>
+                    <option>ИДБ-16-09</option>
+                    <option>ИДБ-16-10</option>
+                </select>
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <label for="sel5">Введите ФИО проверяющего</label>
+                <input type="text" name="Manager" class="form-control" id="sel5" />
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <label for="sel6">Выберите статус</label>
+                <select class="form-control" id="sel4" name="Status">
+                    <option>Проверено</option>
+                    <option>Не Проверено</option>
+                </select>
+            </div>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" Value="Подтвердить" class="btn btn-primary btn-lg" />
+            </td>
+        </tr>
+    </table>
+    }
+</div>
+

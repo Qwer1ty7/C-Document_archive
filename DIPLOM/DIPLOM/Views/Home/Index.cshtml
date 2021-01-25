@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "Архив";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-lg-2">
+            <h3>
+                Фильтры
+            </h3>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel1">Предмет:</label>
+                            <select class="form-control" id="sel1" name="Subject">
+                                <option>Программирование на ЯВУ</option>
+                                <option>Физкультура</option>
+                                <option>Дискретная математика</option>
+                                <option>Экология</option>
+                                <option>Теория вероятности</option>
+                                <option selected></option>
+                            </select>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="custom-file mt-3 mb-3">
+                            <label for="sel0">Название документа</label>
+                            <input type="text" name="Name" class="form-control" id="sel0" />
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel2">Тип документа</label>
+                            <select class="form-control" id="sel2" name="Type">
+                                <option>Лабораторная работа</option>
+                                <option>Курсовая работа</option>
+                                <option>Семинар</option>
+                                <option>ВКР</option>
+                                <option>Производственная практика</option>
+                                <option>НИР</option>
+                                <option selected></option>
+                            </select>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel3">Студент</label>
+                            <input type="text" name="Student" class="form-control" id="sel3" />
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel4">Группа</label>
+                            <select class="form-control" id="sel4" name="Group">
+                                <option>ИДБ-16-01</option>
+                                <option>ИДБ-16-02</option>
+                                <option>ИДБ-16-03</option>
+                                <option>ИДБ-16-09</option>
+                                <option>ИДБ-16-10</option>
+                                <option selected></option>
+                            </select>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel5">Проверяющий</label>
+                            <input type="text" name="Manager" class="form-control" id="sel5" />
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <label for="sel6">Статус</label>
+                            <select class="form-control" id="sel4" name="Status">
+                                <option>Проверено</option>
+                                <option>Не Проверено</option>
+                                <option selected></option>
+                            </select>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" Value="Применить фильтр" class="btn btn-primary btn-md" />
+                        </td>
+                        <td>
+                            <a href="/Home/Index/"><input type="submit" Value="Очистить" class="btn btn-primary btn-md" /></a>
+</td>
+                    </tr>
+                </table>
+            }
+            </div>
+    <div class="col-xs-12 col-lg-10">
+    <h3>Архив документов</h3>
+    <a href="/Home/Add/"><input type="button" value="Добавить документ" class="btn btn-primary btn-lg" /></a>
+    <div></div>
+    <table class="table table-striped">
+        <tr>
+            <th><p></p></th>
+            <th><p>ID</p></th>
+            <th><p>Предмет</p></th>
+            <th><p>Название документа</p></th>
+            <th><p>Тип документа</p></th>
+            <th><p>Студент</p></th>
+            <th><p>Группа</p></th>
+            <th><p>Проверяющий</p></th>
+            <th><p>Статус</p></th>
+            <th><p>Дата создания</p></th>
+            <th><p>Дата изменения</p></th>
+            <th><p></p></th>
+        </tr>
+        @{ 
+            if (ViewBag.Filtr == 0)
+            {
+                foreach (var b in ViewBag.Documents)
+                {
+                    <tr>
+                        <td><a href="/Home/Create/@b.Id"><input type="submit" value="Изменить" class="btn btn-primary btn-lg" /></a></td>
+                        <td><p>@b.Id</p></td>
+                        <td><p>@b.Subject</p></td>
+                        <td><a href="@Url.Action("GetFile", new { path = b.Path, id = b.Id })">@b.Name</a></td>
+                        <td><p>@b.Type</p></td>
+                        <td><p>@b.Student</p></td>
+                        <td><p>@b.Group</p></td>
+                        <td><p>@b.Manager</p></td>
+                        @if (b.Status == "Проверено")
+                        {
+                            <td class="success"><p>@b.Status</p></td>
+                        }
+                        else
+                        {
+                            <td class="danger"><p>@b.Status</p></td>
+                        }
+                        <td><p>@b.DateCreate</p></td>
+                        <td><p>@b.DateChange</p></td>
+                        <td><a href="/Home/Delete/@b.Id"><input type="submit" value="Удалить" class="btn btn-primary btn-lg" /></a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var b in ViewBag.Documents)
+                {
+
+                    if ((b.Subject == ViewBag.FSubject || ViewBag.FSubject == "") && (b.Name == ViewBag.FName || ViewBag.FName == "") && (b.Type == ViewBag.FType || ViewBag.FType == ""
+                        ) && (b.Student == ViewBag.FStudent || ViewBag.FStudent == "") && (b.Group == ViewBag.FGroup || ViewBag.FGroup == "") && (b.Manager == ViewBag.FManager ||
+                        ViewBag.FManager == "") && (b.Status == ViewBag.FStatus || ViewBag.FStatus == ""))
+                    {
+                     <tr>
+                     <td><a href="/Home/Create/@b.Id"><input type="submit" value="Изменить" class="btn btn-primary btn-lg" /></a></td>
+                     <td><p>@b.Id</p></td>
+                     <td><p>@b.Subject</p></td>
+                     <td><a href="@Url.Action("GetFile", new { path = b.Path, id = b.Id })">@b.Name</a></td>
+                     <td><p>@b.Type</p></td>
+                     <td><p>@b.Student</p></td>
+                     <td><p>@b.Group</p></td>
+                     <td><p>@b.Manager</p></td>
+                     @if (@b.Status == "Проверено")
+                     {
+                        <td class="success"><p>@b.Status</p></td>
+                     }
+                     else
+                     {
+                        <td class="danger"><p>@b.Status</p></td>
+                     }
+                     <td><p>@b.DateCreate</p></td>
+                     <td><p>@b.DateChange</p></td>
+                     <td><a href="/Home/Delete/@b.Id"><input type="submit" value="Удалить" class="btn btn-primary btn-lg" /></a></td>
+                     </tr>
+                        }
+                    }
+                }
+            }
+    </table>  
+    </div>
+        </div>
+</div>
